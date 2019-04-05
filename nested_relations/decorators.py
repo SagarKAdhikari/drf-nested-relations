@@ -15,7 +15,9 @@ def helper_data_add(func):
         return obj
     return wrapper
 
+
 def helper_data_update_with_delete(func):
+
     @wraps(func)
     def wrapper(self, instance, validated_data):
 
@@ -26,50 +28,54 @@ def helper_data_update_with_delete(func):
         request_cfg.delete = []
 
         for key, value in self.Meta.nestedSerializer.items():
-            if issubclass(value['serializer_class'], serializers.ModelSerializer):
+
+            if issubclass(
+                value['serializer_class'],
+                serializers.ModelSerializer
+            ):
 
                 if eval("'"+key+"'") in validated_data:
 
-                    print(key)
-
-
                     data = validated_data.pop(eval("'"+key+"'"))
-                    print(data)
-                    if 'kwargs' in value:
 
+                    if 'kwargs' in value:
                         kwargs = {value['kwargs']: instance}
                     else:
                         kwargs = {'content_object': instance}
 
                     for serializer in data:
-
                         serializer.save(**kwargs)
+
         obj = func(self, instance, validated_data)
         return obj
 
     return wrapper
+
 
 def helper_data_update(func):
+
     @wraps(func)
     def wrapper(self, instance, validated_data):
+
         for key, value in self.Meta.nestedSerializer.items():
-            if issubclass(value['serializer_class'], serializers.ModelSerializer):
+
+            if issubclass(
+                value['serializer_class'],
+                serializers.ModelSerializer
+            ):
                 if eval("'"+key+"'") in validated_data:
 
                     data = validated_data.pop(eval("'"+key+"'"))
-                    if 'kwargs' in value:
 
+                    if 'kwargs' in value:
                         kwargs = {value['kwargs']: instance}
                     else:
                         kwargs = {'content_object': instance}
 
                     for serializer in data:
-
                         serializer.save(**kwargs)
+
         obj = func(self, instance, validated_data)
         return obj
 
     return wrapper
-
-
-
