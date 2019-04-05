@@ -4,6 +4,7 @@ from rest_framework import serializers
 
 request_cfg = threading.local()
 
+
 def validate_json(self, data, serializer_class, many=False):
 
     serializer = None
@@ -19,12 +20,14 @@ def validate_json(self, data, serializer_class, many=False):
             data = []
         all_serializers = []
         if many and not isinstance(data, list):
-            raise serializers.ValidationError({'non_field_errors': 'Not a list'})
+            raise serializers.ValidationError(
+                {'non_field_errors': 'Not a list'}
+            )
         for each in data:
             if 'id' in each:
                 id = each.pop('id')
                 model = serializer_class.Meta.model
-            
+
                 try:
                     obj = model.objects.get(id=id)
                 except model.DoesNotExist:
@@ -43,8 +46,7 @@ def validate_json(self, data, serializer_class, many=False):
                         context={'request': self.context['request']},
                         partial=partial
                     )
-
-        
+     
             else:
                 serializer = serializer_class(
                     data=each,
@@ -84,7 +86,7 @@ class NestedDataSerializer(serializers.Serializer):
 
             setattr(self, the_name,
                     (
-                        lambda many, serializer_class : lambda x: validate_json
+                        lambda many, serializer_class: lambda x: validate_json
                         (self,
                          x,
                          serializer_class=serializer_class,

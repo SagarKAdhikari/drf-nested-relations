@@ -7,10 +7,7 @@ drf_nested_relations.egg-info/SOURCES.txt
 drf_nested_relations.egg-info/dependency_links.txt
 drf_nested_relations.egg-info/top_level.txt
 nested_relations/__init__.py
-nested_relations/admin.py
 nested_relations/apps.py
 nested_relations/decorators.py
-nested_relations/models.py
 nested_relations/serializers.py
 nested_relations/tests.py
-nested_relations/views.py
