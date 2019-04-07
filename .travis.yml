@@ -1,0 +1,22 @@
+sudo: required
+language: python
+python:
+- '3.6'
+before_script:
+- pip install -r requirements.txt
+script:
+- true
+notifications:
+  email: false
+cache:
+  pip: true
+deploy:
+- provider: script
+  skip_cleanup: true
+  script: python setup.py sdist bdist_wheel && twine upload dist/*  --verbose
+  on:
+    tags: true
+env:
+  global:
+  - secure: Wmm206Uuts02aoD98EVXJ1g3O0XPKmEOjg03SYxLeHPte05U+kQ+Ty0Ux/CzyelTr8v5zJ5bGnxwufxsdeSuumC7YJKUc0SSOg9Xp6ZJup9nXQ2g4hdaU2RxUkEezRr+b09H+6c8jZTVKNs5czEBYKgJ+s488/hvsnhJuErKFpuOBDQAfz/7GUywHvwoJmJHfV6rDZGt+CQgeZvCyzr2JWoB9573S+ENmfqY4dkNxijuSJOb5AHKFlFCFzMu04mS2AkSDDFoY+PqdurA5YhLIT4CMfbVuSBCuWWhwPMuXg+qdQBxRTj3mxPtt8dqAmELF1nsqIORC2AL14x4sF1oHkPwY8sT910J6ZP+WnUI8AMoWMjjYLxkKOKhuwPKsX1Gl8NaIzoS1FwsYQSnMwU2BJvP1DA6I2Ekvx0TATwPTm+QP3e9J8rcMyWnRHYer1c9NKSTokyCJrqj16qK7nrGtzzLzzkEduOrhslPOCtSem4w0rTiYUkPCd+9SEBI5mw61l3Nzk1XRVajz+j3eSNdgQ3+I/f/H8+BYYrMWSCo6aSGi4c7jSTvhavot1KkIii6Z3eKf+2v0CC0TGgCRXvzkyZCKFLMIH/TWPvHKP33DhpK8mr+FTZ8m42X7oZWxNqvLBJJLtvOGvuXfyOTLYXTXvP9qR4KVDfjCFBmVt9hdVY=
+  - secure: KsnoFZ8D93/YFKvL7jnvrIeQPUO4HUWPIKpKI7SfVmwvELTxrfVWOaM57BWJZ174oo3A4y4fgg3hb8Va/9tGm9R1YJ5rRd+PgaZNxwZm712pQ/rZuSMtxksjWtQNRWTT5KsWVWYUuyDE4BNTz1/3x7rLEgBtoKB2xqeBwH9Bw48IXDx3ayNjLlocgbOUUPk/9RahENf1o42rraaWJOVNy02S4DJWdGpevxnjmtsC2jTfmaqKlIAPrtfWd390aNRpyRVobGNkaSrdoCJQCebAWYyxVDF14AmCQ/R+pWvSoTjU3i0onYt+8YMaVghrLzSdb3mqAlKOaL8aqHzpUhaamYmFLu+U2lOFZdE5at/KN6ToSPJyEkEAUQtmwbiNj1Y89+4bleIzggpRRQlO4oj6e6fy/ExCDN3JZZpJGG1aWhLMHe99TITaqcc5Z6MoQPINvwXzQDwHe7QOy29xsAyvMaPmxGQH4e31Zujs4u1A1EyCQC2wdkDn3yLj6r4Y1dzespF7/s/x44mkYOP1D+krenLrJcWWH/4sQiC3AKXJJqhdXeTye4Q/QbBuRidn06k4sJ9z/Z3hrPt6zaIOav7KHpK/IWMYDe7AKjQ5zmdaF0eta6QkCPX8zS/MIemrbZR2UmF9iGJ81ZPRa9B3/8sXoF9rNGZDR0e+M+67wVUj4Tw=
