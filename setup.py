@@ -21,7 +21,8 @@ setup(
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
-        'Framework :: Django Rest Framework',
+        'Framework :: Django :: 2.0 ',
+        'Framework :: Django :: 2.1',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',  
         'Operating System :: OS Independent',
