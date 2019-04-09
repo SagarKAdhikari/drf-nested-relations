@@ -144,20 +144,16 @@ class NestedDataModelSerializer(NestedDataSerializer, serializers.ModelSerialize
                     maps[key] = {
                         'model': value['serializer_class'].Meta.model,
                         'data': validated_data.pop(eval("'"+key+"'")),
-                        'type': value['type'] if 'type' in value else None,
-                        'kwargs': value['kwargs'] if 'kwargs' in value else None
+                        'kwargs': value['kwargs'] 
                     }
         return maps
 
     def save_helper_data(self, maps, obj):
         for key, value in maps.items():
             data = value['data']
-            if data:
-                if value['type']:
-                    kwargs = {value['kwargs']: obj}
-                else:
-                    kwargs = {'content_object': obj}
-               
+            if data:         
+                kwargs = {value['kwargs']: obj}
+                         
                 for serializer in data:
                     serializer.save(**kwargs)
 

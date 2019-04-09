@@ -42,8 +42,7 @@ class Skill(models.Model):
 
 ```Python
 from rest_framework import serializers
-from nested_relations.decorators import helper_data_add, helper_data_update_with_delete
-from nested_relations.serializers import NestedDataSerializer
+from nested_relations.serializers import NestedDataModelSerializer
 from .models import ContactData, Person, Skill
 
 class ContactDataSerializer(serializers.ModelSerializer):
@@ -56,7 +55,7 @@ class SkillSerializer(serializers.ModelSerializer):
         model = Skill
         exclude = ('person',)
 
-class PersonSerializer(NestedDataSerializer, serializers.ModelSerializer):
+class PersonSerializer(NestedDataModelSerializer):
 
     contact_data = serializers.JSONField(required=False, allow_null=True)
     skills = serializers.JSONField(required=False, allow_null=True)
@@ -65,26 +64,22 @@ class PersonSerializer(NestedDataSerializer, serializers.ModelSerializer):
         model = Person
         fields = '__all__'
         nestedSerializer = {
-            'contact_data': {'serializer_class': ContactDataSerializer, 'many': True},
-            'skills':{'serializer_class': SkillSerializer, 'many': True, 'type': 'fk', 'kwargs': 'person'}
+            'contact_data': {'serializer_class': ContactDataSerializer, 'many': True, 'kwargs': 'content_object'},
+            'skills':{'serializer_class': SkillSerializer, 'many': True, 'kwargs': 'person'}
         }
 
-    @helper_data_add
-    def create(self, validated_data):
-        return super().create(validated_data)
-
-    @helper_data_update_with_delete
-    def update(self, instance, validated_data):
-        return super().update(instance, validated_data)
+   
 ```
 
 
 * For generic relation , 
-use `field_name = serializers.JSONField()`  and same `field_name` in nested serializer. No need to provide anything extra in nested serializer. By default, it assumes `content_object` in the models.
+use `field_name = serializers.JSONField()`  and same `field_name` in nested serializer. (An attribute in main model that points to nested relation)
 
 * For foreign key, 
-Use `related_name = serializers.JSONField()` and same `related_name` in nested serializer.
-Provide type `fk` and provide `field_name` as kwargs.
+Use `related_name = serializers.JSONField()` and same `related_name` in nested serializer. (An attribute in main model that points to nested relation)
+
+* For both,
+Provide `many=True`. The value for `kwargs` is clear from example. It is an attribute in nested relation that points to main model.
 
 ## Writing data
 ```python
@@ -144,7 +139,7 @@ data = {
     "name": "Sagar"
 }
 
-person_serializer = PersonSerializer(data=data, context={'request':request})
+person_serializer = PersonSerializer(person, data=data, context={'request':request})
 person_serializer.save()
 print(person_serializer.data)
 
@@ -172,6 +167,6 @@ print(person_serializer.data)
 }
 ```
 ## Deeper Relations
-For deeper relations, the nested serializer should further inherit `NestedDataSerializer`, the same decorators have to be applied to create and update methods, and their corresponding nested serializers have to be provided.
+For deeper relations, the nested serializer should further inherit `NestedDataModelSerializer` and their corresponding nested serializers have to be provided.
 
 

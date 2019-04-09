@@ -38,11 +38,8 @@ def helper_data_update_with_delete(func):
 
                     data = validated_data.pop(eval("'"+key+"'"))
 
-                    if 'kwargs' in value:
-                        kwargs = {value['kwargs']: instance}
-                    else:
-                        kwargs = {'content_object': instance}
-
+                    kwargs = {value['kwargs']: instance}
+                  
                     for serializer in data:
                         serializer.save(**kwargs)
 
@@ -67,11 +64,8 @@ def helper_data_update(func):
 
                     data = validated_data.pop(eval("'"+key+"'"))
 
-                    if 'kwargs' in value:
-                        kwargs = {value['kwargs']: instance}
-                    else:
-                        kwargs = {'content_object': instance}
-
+                    kwargs = {value['kwargs']: instance}
+                   
                     for serializer in data:
                         serializer.save(**kwargs)
 
