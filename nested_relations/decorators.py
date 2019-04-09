@@ -1,7 +1,7 @@
+from functools import wraps
 
 from rest_framework import serializers
-from .serializers import request_cfg
-from functools import wraps
+from nested_relations import request_cfg
 
 
 def helper_data_add(func):

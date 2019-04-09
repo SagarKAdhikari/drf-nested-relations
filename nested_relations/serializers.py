@@ -1,8 +1,7 @@
 
-import threading
 from rest_framework import serializers
-
-request_cfg = threading.local()
+from nested_relations import request_cfg
+from .decorators import helper_data_add, helper_data_update_with_delete
 
 
 def validate_json(self, data, serializer_class, many=False):
@@ -125,6 +124,17 @@ class NestedDataSerializer(serializers.Serializer):
                     pass
         return representation
 
+    class Meta:
+        abstract = True
+
+
+class NestedDataModelSerializer(NestedDataSerializer, serializers.ModelSerializer):
+
+    def __new__(cls, *args, **kwargs):
+        cls.create = helper_data_add(cls.create)
+        cls.update = helper_data_update_with_delete(cls.update)
+        return super(NestedDataSerializer, cls).__new__(cls,*args, **kwargs)
+       
     def pop_helper_data(self, validated_data):
         maps = {}
         print(self.Meta.nestedSerializer.items())
@@ -153,3 +163,4 @@ class NestedDataSerializer(serializers.Serializer):
 
     class Meta:
         abstract = True
+
