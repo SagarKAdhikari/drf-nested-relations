@@ -7,11 +7,38 @@ It receives nested data as list of dictionaries.
 It works for generic relations and foreign keys for now.
 
 
-* If the dictionary contains `id` field, the nested data will be updated.
+* If the dictionary contains `id` field, the corresponding nested data will be updated.
 
 * If the dictionary does not contain `id`, field , new data will be created.
 
 * If the dictionary contains only `id` as key, the data will be deleted.
+
+There is no need to provide data which do not need to be updated or deleted.
+
+# Installation
+
+1. Install the package from pypi using pip:
+
+    `pip install drf-nested-relations`
+
+2. Add `nested_relations` to INSTALLED_APPS.
+    ```python
+    
+    INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # Third party apps
+    'rest_framework',  # utilities for rest apis
+
+    # drf nested relations
+    'nested_relations',
+   ]```
+
 
 # Usage
 
@@ -167,6 +194,6 @@ print(person_serializer.data)
 }
 ```
 ## Deeper Relations
-For deeper relations, the nested serializer should further inherit `NestedDataModelSerializer` and their corresponding nested serializers have to be provided.
+For deeper relations, the nested serializer should further inherit `NestedDataModelSerializer` and their corresponding nested serializers have to be provided in the similar manner as shown.
 
 
