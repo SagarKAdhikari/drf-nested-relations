@@ -25,11 +25,3 @@ class PersonSerializer(NestedDataSerializer, serializers.ModelSerializer):
             'contact_data': {'serializer_class': ContactDataSerializer, 'many': True},
             'skills':{'serializer_class': SkillSerializer, 'many': True, 'type': 'fk', 'kwargs': 'person'}
         }
-
-    @helper_data_add
-    def create(self, validated_data):
-        return super().create(validated_data)
-
-    @helper_data_update_with_delete
-    def update(self, instance, validated_data):
-        return super().update(instance, validated_data)
