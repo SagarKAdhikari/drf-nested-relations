@@ -15,7 +15,7 @@ Updating data with its nested data which can go recursively to any depth (see se
 
 * If the dictionary contains only `id` as key, the nested data will be deleted.
 
-There is no need to provide data which do not need to be updated or deleted.
+There is no need to provide nested data which do not need to be updated or deleted.
 
 # Installation
 
