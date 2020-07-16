@@ -22,6 +22,6 @@ class PersonSerializer(NestedDataSerializer, serializers.ModelSerializer):
         model = Person
         fields = '__all__'
         nestedSerializer = {
-            'contact_data': {'serializer_class': ContactDataSerializer, 'many': True},
-            'skills':{'serializer_class': SkillSerializer, 'many': True, 'type': 'fk', 'kwargs': 'person'}
+            'contact_data': {'serializer_class': ContactDataSerializer, 'many': True, 'kwargs': 'content_object'},
+            'skills':{'serializer_class': SkillSerializer, 'many': True,'kwargs': 'person'}
         }
