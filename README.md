@@ -6,7 +6,7 @@ This python package is an extension for django rest framework for  creating, upd
 It receives nested data as list of dictionaries. 
 It works for generic relations and foreign keys for now.
 
-Creating data is as usual (see section <b> Writing data).
+Creating data is as usual (see section <b> Writing data </b>).
 
 Updating data with its nested data which can go recursively to any depth (see section <b> Writing data </b>) :
 * If the dictionary contains `id` field, the corresponding nested data will be updated.
