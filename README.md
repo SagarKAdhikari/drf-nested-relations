@@ -1,7 +1,7 @@
 
 # DRF Nested Relations
 
-This python package is an extension for django rest framework for  creating, updating and deleting nested relations. The nested relations can go to `any depth`.
+This python package is an extension for django rest framework for  creating, updating and deleting nested relations, using recursive approach so that the nested relations can go to `any depth`.
 
 It receives nested data as list of dictionaries. 
 It works for generic relations and foreign keys for now.
