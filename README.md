@@ -8,12 +8,12 @@ It works for generic relations and foreign keys for now.
 
 Creating data is as usual (see section <b> Writing data).
 
-Updating data with its nested data which can go recursively to any depth (see section <b> Writing data</b>) :
+Updating data with its nested data which can go recursively to any depth (see section <b> Writing data </b>) :
 * If the dictionary contains `id` field, the corresponding nested data will be updated.
 
-* If the dictionary does not contain `id`, field , new data will be created.
+* If the dictionary does not contain `id`, field , new nested data will be created.
 
-* If the dictionary contains only `id` as key, the data will be deleted.
+* If the dictionary contains only `id` as key, the nested data will be deleted.
 
 There is no need to provide data which do not need to be updated or deleted.
 
