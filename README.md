@@ -119,7 +119,9 @@ data = {
     "name": "Sagar"
 }
 
-person_serializer = PersonSerializer(data=data,  context={'request':request}) # request is needed to check if method is PUT or PATCH. For PUT method, we demand the request data to contain all required fields 
+person_serializer = PersonSerializer(data=data,  context={'request':request}) 
+# 'request' is needed to check if method is PUT or PATCH. 
+# For PUT method, we demand the request data to contain all required fields.
 
 person_serializer.is_valid(raise_exception=True)
 person = person_serializer.save()
